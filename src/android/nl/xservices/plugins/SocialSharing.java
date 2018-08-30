@@ -198,15 +198,9 @@ public class SocialSharing extends CordovaPlugin {
   }
 
   private String getDownloadDir() throws IOException {
-    // better check, otherwise it may crash the app
-    if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-      // we need to use external storage since we need to share to another app
-      final String dir = webView.getContext().getExternalFilesDir(null) + "/socialsharing-downloads";
-      createOrCleanDir(dir);
-      return dir;
-    } else {
-      return null;
-    }
+    final String dir = webView.getContext().getFilesDir() + "/socialsharing-downloads";
+    createOrCleanDir(dir);
+    return dir;
   }
 
   private boolean shareWithOptions(CallbackContext callbackContext, JSONObject jsonObject) {
